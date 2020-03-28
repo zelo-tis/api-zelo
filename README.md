@@ -1,2 +1,2 @@
 # api-zelo
-Api para o projeto ZELO
+api-zelo for Hospital System integration for patients decubitus.
