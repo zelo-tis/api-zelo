@@ -1,0 +1,20 @@
+{
+    "change_language": "Trocar Idioma",
+    "next": "Próximo",
+    "purchase": "Comprar",
+    "login": "Fazer login",
+    "logout": "Acessar com outra conta",
+    "to-be-paid": "Você está pagando: {{amountDisplay}}",
+    "edit_text": "Editar Texto",
+    "elements": {
+        "buttons": {
+            "buy_now": "Comprar Agora",
+            "next_step": "Próximo Passo",
+            "buy_product_now": "Comprar Produto Agora",
+            "edit_cupom": "Editar Cupom"
+        }
+    },
+    "error_messages": {
+        "crash": "Ocorreu um erro"
+    }
+}

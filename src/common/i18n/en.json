@@ -1,0 +1,10 @@
+{
+    "change_language": "",
+    "next": "",
+    "purchase": "Comprar agora",
+    "login": "Fazer login",
+    "logout": "Acessar com outra conta",
+    "to-be-paid": "Você está pagando: {{amountDisplay}}",
+    "buy_now": "Comprar Agora",
+    "edit_text": "Editar Texto"
+}
