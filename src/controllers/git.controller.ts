@@ -11,6 +11,7 @@ import ProjectModel from '../models/project.model';
 import ProjectTransifexModel from '../models/project-transifex.model';
 import Controller from '../common/utils/class/controller';
 import RequestModel from '../models/request.model';
+import UserModel from '../models/user.model';
 import { NotFoundError } from '../common/utils/errors';
 
 class GitController extends Controller {
@@ -29,19 +30,36 @@ class GitController extends Controller {
     try {
       const data = req.body;
 
-      // if (GithubUtils.checkEventIsMergedPullRequest(data)) {
-      //   res.send('');
-      // }
+      if (GithubUtils.checkEventIsMergedPullRequest(data)) {
+        res.send('');
+      }
 
       const diffUrl = data?.payload?.pull_request?.diff_url;
       const merged_at = getDateTimeString(data?.payload?.pull_request?.merged_at);
       const github_repo = data?.repo?.name;
+      const gitUsername = data?.actor?.login;
 
       if (!diffUrl) {
         throw new NotFoundError('File .diff not found');
       }
 
-      const content = await GitHub.getPRDiff(diffUrl, req.headers.cookie);
+      if (!gitUsername) {
+        throw new NotFoundError('Username is not present in git');
+      }
+      let user = await UserModel.getOne({ username: gitUsername });
+      if (!user || !user?.email) {
+        const gitUserDetails = await GitHub.getUserDetails(gitUsername);
+        if (gitUserDetails?.email) {
+          const email = gitUserDetails.email;
+          if (user?.id) {
+            user.email = email;
+          } else {
+            user = await UserModel.insert({ username: gitUsername, email });
+          }
+        }
+      }
+
+      const content = await GitHub.getPRDiff(diffUrl, req?.headers?.cookie);
       const labels = GithubUtils.extractLabels(content);
       const project = await ProjectModel.getProject({
         github_repo

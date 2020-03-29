@@ -1,2 +1,2 @@
-# api-zelo
-api-zelo for Hospital System integration for patients decubitus.
+# api-tradops
+api-tradops for GitHub and Transifex Services

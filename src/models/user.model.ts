@@ -116,13 +116,14 @@ export class User extends Model<UserInterface> {
 
   public async getOne(where?: UserInterface, renameColumns = true) {
     const result = await super.getOne(where, renameColumns);
-    const id: number = +result.id;
+    if (result?.id) {
+      const id: number = +result.id;
 
-    if (id) {
-      result.projectUser = await this.getUserProject(id);
-      result.languages = await this.getLanguages(id);
+      if (id) {
+        result.projectUser = await this.getUserProject(id);
+        result.languages = await this.getLanguages(id);
+      }
     }
-
     return result;
   }
 }

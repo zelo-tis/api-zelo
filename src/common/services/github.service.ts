@@ -26,6 +26,12 @@ export default class GitHub {
     }).then((response) => response.data);
   }
 
+  public static getUserDetails(username: string) {
+    return axios.get(`${CONFIG.git.url}users/${username}`, {
+      headers: GitHub.getHeader()
+    }).then((response) => response.data);
+  }
+
   public static getPRDiff(url: string, cookies?: any) {
     return axios.get(url, {
       withCredentials: true,
