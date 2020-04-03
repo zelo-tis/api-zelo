@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import apiRoutes from './routes';
-import translationJobs from './common/jobs/translation';
+
 
 class App {
     public express: express.Application;
@@ -22,9 +22,9 @@ class App {
       apiRoutes(this.express);
     }
 
-    private jobs() {
-      translationJobs();
-    }
+    // private jobs() {
+    //
+    // }
 }
 
 export default new App().express;

@@ -1,7 +1,5 @@
-import { UserInterface, UserProjectInterface, UserLanguageInterface } from '../database';
+import { UserInterface } from '../database';
 
 export interface UserDataInterface {
     table: UserInterface;
-    projects: UserProjectInterface[];
-    languages: UserLanguageInterface[];
 }

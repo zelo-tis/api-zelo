@@ -3,7 +3,7 @@ const config = {
     host: '127.0.0.1',
     user: 'root',
     password: '',
-    database: 'tradops'
+    database: 'zelo'
   },
   git: {
     url: 'https://api.github.com/',
