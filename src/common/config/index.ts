@@ -1,8 +1,8 @@
 const config = {
   database: {
-    host: '127.0.0.1',
-    user: 'root',
-    password: '',
+    host: 'zelo.armanelli.com',
+    user: 'zelo',
+    password: 'Xy5nyxVAGA2dEmEK5fEpLwYhKuUjC5n7',
     database: 'zelo'
   },
   git: {
