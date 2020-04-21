@@ -5,3 +5,4 @@ package-lock.json
 .vscode/settings.json
 .idea
 LOCAL Session.sql
+/.idea/

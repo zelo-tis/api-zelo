@@ -3,7 +3,6 @@
   <component name="ProjectModuleManager">
     <modules>
       <module fileurl="file://$PROJECT_DIR$/.idea/api-zelo.iml" filepath="$PROJECT_DIR$/.idea/api-zelo.iml" />
-      <module fileurl="file://$PROJECT_DIR$/../../react/zelo/.idea/zelo.iml" filepath="$PROJECT_DIR$/../../react/zelo/.idea/zelo.iml" />
     </modules>
   </component>
 </project>

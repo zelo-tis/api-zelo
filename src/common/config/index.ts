@@ -1,9 +1,9 @@
 const config = {
   database: {
-    host: 'zelo.armanelli.com',
-    user: 'zelo',
-    password: 'Xy5nyxVAGA2dEmEK5fEpLwYhKuUjC5n7',
-    database: 'zelo'
+    host: process.env.DB_HOST,
+    user: process.env.DB_USER,
+    password: process.env.DB_PASSWORD,
+    database: process.env.DB_DATABASE
   },
   git: {
     url: 'https://api.github.com/',
