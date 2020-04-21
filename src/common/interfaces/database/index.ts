@@ -1,2 +1,2 @@
 export * from './user.interface';
-export * './patient.interface';
+export * from './patient.interface';

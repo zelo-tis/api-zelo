@@ -1,6 +1,5 @@
 import knex from 'knex';
 import CONFIG from '../config';
-
 export default knex({
   client: 'mysql',
   debug: process.env.NODE_ENV === 'development',
