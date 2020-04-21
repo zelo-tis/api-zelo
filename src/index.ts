@@ -1,6 +1,6 @@
 import App from './app';
 
-const port = process.env.PORT || 8080;
+const port = process.env.PORT || 3000;
 
 App.listen(port, () => {
   console.warn(`App listening on port ${port}`);
