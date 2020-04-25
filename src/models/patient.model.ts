@@ -13,12 +13,12 @@ export class User extends Model<PatientInterface> {
     const columns = [
       'id',
       'name',
-      'attendance_number',
+      'attendance_number AS attendanceNumber',
       'braden',
       'observation',
-      'bed_id',
+      'bed_id AS bedId',
       'hospitalization',
-      'movimentation_frequency_id'
+      'movement_frequency_id AS movementFrequencyId'
     ];
 
     super('patient', columns);

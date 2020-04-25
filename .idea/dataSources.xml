@@ -7,5 +7,11 @@
       <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
       <jdbc-url>jdbc:mariadb://localhost:3306/zelo</jdbc-url>
     </data-source>
+    <data-source source="LOCAL" name="zelo@zelo.armanelli.com" uuid="3ebd063a-6dc4-4e31-8798-26f865703320">
+      <driver-ref>mariadb</driver-ref>
+      <synchronize>true</synchronize>
+      <jdbc-driver>org.mariadb.jdbc.Driver</jdbc-driver>
+      <jdbc-url>jdbc:mariadb://zelo.armanelli.com:3306/zelo</jdbc-url>
+    </data-source>
   </component>
 </project>
