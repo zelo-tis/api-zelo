@@ -8,5 +8,5 @@ export default (app: express.Application) => {
   app.use(cors());
   app.use('/user', user);
   app.use('/dashboard', dashboard);
-  app.use('change-record', changeRecord);
+  app.use('/change-record', changeRecord);
 };

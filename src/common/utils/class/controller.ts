@@ -4,6 +4,7 @@ import { ValidationError, BadRequestError } from '../errors';
 import { ErrorInterface } from '../../interfaces/error.interface';
 
 export default abstract class Controller {
+
   public validateRequest(req: Request) {
     const errors = validationResult(req);
 

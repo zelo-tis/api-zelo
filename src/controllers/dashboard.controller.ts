@@ -1,12 +1,12 @@
 import { Request, Response } from 'express';
 import Controller from '../common/utils/class/controller';
-
-import ModelDashboard from '../models/dashboard.model';
+import dashboardTransformation from '../common/data-transformations/dashboard.transformation';
 import ModelChangeRecord from '../models/change-record.model';
 
 class DashboardController extends Controller {
   public async getListRegistry(req: Request, res: Response) {
-    const list = await ModelChangeRecord.generateChangeRecords();
+    const data = dashboardTransformation(req.body);
+    const list = await ModelChangeRecord.list(data, { column: 3, order: 1 });
     res.json({ status: true, data: list})
   }
 }
