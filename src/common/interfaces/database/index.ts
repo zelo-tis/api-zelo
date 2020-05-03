@@ -3,3 +3,4 @@ export * from './patient.interface';
 export * from './change-record.interface';
 export * from './patient-monitoring.interface';
 export * from  './treatment.interface';
+export * from './patient-restriction.interface';
