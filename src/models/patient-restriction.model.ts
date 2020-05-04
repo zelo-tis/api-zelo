@@ -13,6 +13,14 @@ export class  PatientRestriction extends Model<PatientRestrictionInterface> {
 
     super('patient_restriction', columns);
   }
+
+
+  public async getPatientTreatmentsRestrictions(where?: any, renameColumns = true) {
+    return this.knexGetAll(where, renameColumns)
+      .select(['r.*'])
+      .innerJoin(this.knex.raw('restriction r'), 'r.id', 't.restriction_id');
+  }
+
   public async list(
     where?: PatientRestrictionInterface,
     orderBy?: { column: number; order: number },

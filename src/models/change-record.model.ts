@@ -1,7 +1,7 @@
 import {ChangeRecordInterface, PatientMonitoringInterface} from '../common/interfaces/database';
 import Model from '../common/utils/class/model';
 import PatientMonitoringModel from './patient-monitoring.modal';
-import TreatmentModel from './treatment.model';
+import PatientModel from './patient.model';
 import {CHANGE_RECORD_STATUS, DATE_FORMAT} from '../common/constants';
 import moment from 'moment';
 export class ChangeRecord extends Model<ChangeRecordInterface> {
@@ -34,7 +34,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
   public async generateChangeRecord(monitoring: any){
     const patientLastRecord =  await this.getLastPatientChangeRecord(monitoring.patient_id);
     let startDate = monitoring.start_date;
-
+    const DAYS_BASE = 1;
     if(patientLastRecord){
       startDate = patientLastRecord.prevision_date;
     }
@@ -42,15 +42,15 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     const today = moment().format(DATE_FORMAT.DEFAULT);
     let endDate;
     if(moment(startDate).format(DATE_FORMAT.DEFAULT) <= today) {
-      endDate = moment(today).add(5, 'days').format(DATE_FORMAT.DEFAULT);
+      endDate = moment(today).add(DAYS_BASE, 'days').format(DATE_FORMAT.DEFAULT);
     }else{
-      endDate = moment(startDate).add(5, 'days').format(DATE_FORMAT.DEFAULT);
+      endDate = moment(startDate).add(DAYS_BASE, 'days').format(DATE_FORMAT.DEFAULT);
     }
 
-    // if(endDate === moment(today).add(5, 'days').format(DATE_FORMAT.DEFAULT)) return false;
-
     const frequency = monitoring.frequency;
-    const treatments = await TreatmentModel.getAll();
+    const treatments = await PatientModel.getPatientActualTreatments({
+      patient_id:monitoring.patient_id
+    });
     let nextDate = moment(startDate);
 
     const newRecords = [];
@@ -68,6 +68,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         status: CHANGE_RECORD_STATUS.TODO
       });
 
+      treatmentIndex++;
       newRecords.push(newRecord);
     }
 
@@ -81,11 +82,22 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
       .orderBy('created_at', 'DESC');
   }
 
+  public async deleteNextRecords(where: any){
+    const date = moment().format(DATE_FORMAT.DEFAULT_TIME);
+     return this.knex(this.table)
+       .where(where)
+      .where(this.knex.raw(`
+       prevision_date >= '${date}'
+      `))
+      .del();
+  }
+
   public async list(
     where?: any,
     orderBy?: { column: number; order: number },
     page: number = 0,
-    limit: number = 10
+    limit: number = 10,
+    customWhere?: any
   ) {
     const { column = 0, order = 0 } = orderBy || {};
     const sortableColumns = this.getSelect();
@@ -95,12 +107,14 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         'bed.number as bed',
         'p.attendance_number',
         'p.name as patient_name',
+        'treatment.name as treatment_name',
         'p.braden',
         't.prevision_date',
         'pm.start_date as monitoring_start_date',
         'ph.start_date as hospitalization_start_date'
       ])
       .innerJoin(this.knex.raw('patient p'), 'p.id', 't.patient_id')
+      .innerJoin(this.knex.raw('treatment'), 'treatment.id', 't.treatment_id')
       .innerJoin(this.knex.raw('patient_monitoring pm'), 'pm.patient_id', 't.patient_id')
       .innerJoin(this.knex.raw('patient_hospitalization ph'), 'ph.patient_id', 't.patient_id')
       .innerJoin(this.knex.raw('bed'), 'bed.id', 'ph.bed_id')
@@ -109,12 +123,13 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         'pm.active': true,
         'ph.active': true,
         't.status': 'TODO',
-      });
+      })
+      .where(where);
 
-    if(where.period){
-      query.where(this.knex.raw(`t.prevision_date BETWEEN '${where.period.startDate}' AND '${where.period.endDate}' `));
+    if(customWhere.period){
+      query.where(this.knex.raw(`t.prevision_date BETWEEN '${customWhere.period.startDate}' AND '${customWhere.period.endDate}' `));
     }
-    if(where.now){
+    if(customWhere.now){
       const dateNow =  moment().format('YYYY-MM-DD HH:MM');
       console.log('dateNow', dateNow);
       query.where(this.knex.raw(`t.prevision_date >= '${dateNow}' `));
@@ -129,8 +144,11 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         return total;
       });
 
+    if(!customWhere.period){
+      query.groupBy('t.patient_id')
+    }
+
     let data = await query
-      .groupBy('t.patient_id')
       .orderBy(sortableColumns[column], order == 0 ? 'DESC' : 'ASC')
       .limit(limit)
       .offset(page * limit);

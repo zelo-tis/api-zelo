@@ -70,5 +70,11 @@ class ChangeRecordController extends Controller {
     const result = await ModelChangeRecord.generateChangeRecords();
     res.json({ status: true, data: result})
   }
+
+  public async deleteNextRecords(req: Request, res: Response) {
+    const where = changeRecordTransformation(req.body);
+    const result = await ModelChangeRecord.deleteNextRecords(where);
+    res.json({ status: true, data: result})
+  }
 }
 export default new ChangeRecordController();

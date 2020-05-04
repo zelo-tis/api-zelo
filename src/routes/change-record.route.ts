@@ -11,6 +11,9 @@ router
   .route(['/generate'])
   .post((req, res) => Controller.generateChangeRecords(req, res));
 
+router
+  .route(['/next-records'])
+  .delete((req, res) => Controller.deleteNextRecords(req, res));
 
 
 export default router;
