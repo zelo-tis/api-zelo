@@ -2,8 +2,8 @@
 // eslint-disable-next-line @typescript-eslint/ban-ts-ignore
 // @ts-ignore
 const dotenv = require("dotenv");
-
-const envFile = __dirname +  process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
+console.log('process.env.NODE_ENV', process.env.NODE_ENV);
+const envFile = process.env.NODE_ENV ? `.env.${process.env.NODE_ENV}` : '.env';
 console.log('envFile', envFile);
 dotenv.config({ path: envFile });
 console.log('process.env', process.env.NODE_ENV, process.env.DB_HOST);
