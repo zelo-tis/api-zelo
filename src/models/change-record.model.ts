@@ -92,6 +92,15 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
       .del();
   }
 
+  public async updateNextRecords(where: any){
+    const deleteRecords = await this.deleteNextRecords(where);
+    const generateRecords = await this.generateChangeRecords();
+    return {
+      deleteRecords,
+      generateRecords
+    }
+  }
+
   public async list(
     where?: any,
     orderBy?: { column: number; order: number },

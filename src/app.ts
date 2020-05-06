@@ -1,7 +1,7 @@
 import bodyParser from 'body-parser';
 import express from 'express';
 import apiRoutes from './routes';
-
+import changeRecordJob from "./common/jobs/create-change-records.job";
 
 class App {
     public express: express.Application;
@@ -10,7 +10,7 @@ class App {
       this.express = express();
       this.middleware();
       this.routes();
-      // this.jobs();
+      this.jobs();
     }
 
     private middleware() {
@@ -22,9 +22,9 @@ class App {
       apiRoutes(this.express);
     }
 
-    // private jobs() {
-    //
-    // }
+    private jobs() {
+      changeRecordJob();
+    }
 }
 
 export default new App().express;

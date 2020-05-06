@@ -9,7 +9,8 @@ export class  PatientRestriction extends Model<PatientRestrictionInterface> {
     const columns = [
       'id',
       'patient_id',
-      'restriction_id'
+      'restriction_id',
+      'active'
     ];
 
     super('patient_restriction', columns);
@@ -19,7 +20,8 @@ export class  PatientRestriction extends Model<PatientRestrictionInterface> {
   public async getPatientTreatmentsRestrictions(where?: any, renameColumns = true) {
     return this.knexGetAll(where, renameColumns)
       .select(['r.*'])
-      .innerJoin(this.knex.raw('restriction r'), 'r.id', 't.restriction_id');
+      .innerJoin(this.knex.raw('restriction r'), 'r.id', 't.restriction_id').
+      where({'active': true });
   }
 
   public async list(
