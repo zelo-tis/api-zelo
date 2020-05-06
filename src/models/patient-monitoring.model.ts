@@ -14,6 +14,7 @@ export class  PatientMonitoring extends Model<PatientMonitoringInterface> {
       'active',
       'patient_id',
       'movement_frequency_id',
+      'contact_restriction'
     ];
 
     super('patient_monitoring', columns);

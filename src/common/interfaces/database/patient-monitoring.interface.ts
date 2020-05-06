@@ -6,4 +6,5 @@ export interface PatientMonitoringInterface {
   active?: boolean;
   patient_id?: number;
   movement_frequency_id?: number;
+  contact_restriction?: boolean;
 }

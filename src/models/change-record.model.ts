@@ -41,12 +41,8 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     }
 
     const today = moment().format(DATE_FORMAT.DEFAULT);
-    let endDate;
-    if(moment(startDate).format(DATE_FORMAT.DEFAULT) <= today) {
-      endDate = moment(today).add(DAYS_BASE, 'days').format(DATE_FORMAT.DEFAULT);
-    }else{
-      endDate = moment(startDate).add(DAYS_BASE, 'days').format(DATE_FORMAT.DEFAULT);
-    }
+
+   let endDate = moment(today).add(DAYS_BASE, 'days').format(DATE_FORMAT.DEFAULT);
 
     const frequency = monitoring.frequency;
     const treatments = await PatientModel.getPatientActualTreatments({
@@ -122,6 +118,8 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         't.status',
         't.prevision_date',
         'pm.start_date as monitoring_start_date',
+        'pm.observation as patient_monitoring_observation',
+        'pm.contact_restriction',
         'ph.start_date as hospitalization_start_date',
         'mf.frequency',
         this.knex.raw('TIMESTAMPDIFF(MINUTE, NOW(), t.prevision_date) AS deadline'),

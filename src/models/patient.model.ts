@@ -21,11 +21,12 @@ export class Patient extends Model<PatientInterface> {
   public async getPatientActualTreatments(where?: any, renameColumns = true) {
     const treatments = await TreatmentModel.getAll();
     const patientRestrictions = await PatientRestrictionModel.getPatientTreatmentsRestrictions(where);
-
-    return treatments.filter(
-      (treatment) =>
-      !patientRestrictions.some(
-        (patientRestriction) => patientRestriction.treatment_id === treatment.id))
+   const treatmentChange = treatments[3];
+    return treatments.filter((t, index) => index !== 3).map(
+      (treatment) => patientRestrictions.some(
+        (patientRestriction) => patientRestriction.treatment_id === treatment.id)
+      ? treatmentChange : treatment
+    )
   }
 }
 
