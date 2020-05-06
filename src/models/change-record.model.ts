@@ -1,6 +1,6 @@
 import {ChangeRecordInterface, PatientMonitoringInterface} from '../common/interfaces/database';
 import Model from '../common/utils/class/model';
-import PatientMonitoringModel from './patient-monitoring.modal';
+import PatientMonitoringModel from './patient-monitoring.model';
 import PatientModel from './patient.model';
 import {CHANGE_RECORD_STATUS, DATE_FORMAT} from '../common/constants';
 import moment from 'moment';
