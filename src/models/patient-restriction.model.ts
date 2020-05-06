@@ -7,6 +7,7 @@ export class  PatientRestriction extends Model<PatientRestrictionInterface> {
 
   constructor() {
     const columns = [
+      'id',
       'patient_id',
       'restriction_id'
     ];

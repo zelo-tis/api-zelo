@@ -4,6 +4,7 @@ import dashboard from './dashboard.route';
 import changeRecord from './change-record.route';
 import restriction from './restriction.routes';
 import patient from './patient.route';
+import patientRestriction from './patient-restriction.route';
 const cors = require('cors');
 
 export default (app: express.Application) => {
@@ -13,4 +14,5 @@ export default (app: express.Application) => {
   app.use('/restriction', restriction);
   app.use('/change-record', changeRecord);
   app.use('/patient', patient);
+  app.use('/patient-restriction', patientRestriction);
 };
