@@ -3,28 +3,20 @@ import Model from '../common/utils/class/model';
 import TreatmentModel from "./treatment.model";
 import PatientRestrictionModel from "./patient-restriction.model";
 
-export class User extends Model<PatientInterface> {
+export class Patient extends Model<PatientInterface> {
   public id?: number;
-
-  public languages?: number[];
-
-  public userProject?: number[];
 
   constructor() {
     const columns = [
       'id',
       'name',
-      'attendance_number AS attendanceNumber',
+      'attendance_number',
       'braden',
-      'observation',
-      'bed_id AS bedId',
-      'hospitalization',
-      'movement_frequency_id AS movementFrequencyId'
+      'observation'
     ];
 
     super('patient', columns);
   }
-
 
   public async getPatientActualTreatments(where?: any, renameColumns = true) {
     const treatments = await TreatmentModel.getAll();
@@ -37,4 +29,4 @@ export class User extends Model<PatientInterface> {
   }
 }
 
-export default new User();
+export default new Patient();
