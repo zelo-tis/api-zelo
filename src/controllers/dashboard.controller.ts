@@ -10,7 +10,7 @@ class DashboardController extends Controller {
       data.changeRecord,
       { column: 3, order: 1 },
       undefined,
-      undefined,
+      10,
       data.custom);
     res.json({ status: true, data: list})
   }

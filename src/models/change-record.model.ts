@@ -109,6 +109,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     const sortableColumns = this.getSelect();
     const query = this.knex(this.knex.raw(`${this.table} t`))
       .select([
+        't.id',
         's.name as station',
         'bed.number as bed',
         'p.attendance_number',
@@ -116,7 +117,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         'treatment.name as treatment_name',
         'p.braden',
         't.status',
-        't.prevision_date',
+         this.knex.raw("DATE_FORMAT(t.prevision_date, \'%Y-%m-%d %H:%i\') as prevision_date"),
         'pm.start_date as monitoring_start_date',
         'pm.observation as patient_monitoring_observation',
         'pm.contact_restriction',
@@ -145,6 +146,10 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
       const dateNow =  moment().format('YYYY-MM-DD HH:MM');
       console.log('dateNow', dateNow);
       query.where(this.knex.raw(`t.prevision_date >= '${dateNow}' `));
+    }
+
+    if(customWhere.station){
+      query.where({'bed.station_id': customWhere.station});
     }
     const count = query.clone();
 
