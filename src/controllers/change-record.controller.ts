@@ -49,7 +49,7 @@ class ChangeRecordController extends Controller {
 
   public async getAll(req: Request, res: Response) {
     try {
-      const where = changeRecordTransformation(req.body);
+      const where = changeRecordTransformation(req.query);
       const response = await ModelChangeRecord.getAll(where);
       res.json(response);
     } catch (error) {

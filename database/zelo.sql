@@ -62,41 +62,41 @@ CREATE TABLE IF NOT EXISTS `change_record` (
 DELETE FROM `change_record`;
 /*!40000 ALTER TABLE `change_record` DISABLE KEYS */;
 INSERT INTO `change_record` (`id`, `patient_id`, `responsible_user_id`, `prevision_date`, `treatment_id`, `status`, `completed_by_user_id`, `completed_at`, `created_at`) VALUES
-	(1, 2, NULL, '2020-05-06 10:05:00', 1, 'TODO', NULL, NULL, NULL),
-	(2, 2, NULL, '2020-05-06 13:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(3, 2, NULL, '2020-05-06 16:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(4, 2, NULL, '2020-05-06 19:05:00', 1, 'TODO', NULL, NULL, NULL),
-	(5, 2, NULL, '2020-05-06 22:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(6, 2, NULL, '2020-05-07 01:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(7, 2, NULL, '2020-05-07 04:05:00', 1, 'TODO', NULL, NULL, NULL),
-	(8, 2, NULL, '2020-05-07 10:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(9, 2, NULL, '2020-05-07 07:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(10, 2, NULL, '2020-05-07 16:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(11, 2, NULL, '2020-05-07 13:05:00', 1, 'TODO', NULL, NULL, NULL),
-	(12, 2, NULL, '2020-05-07 19:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(13, 2, NULL, '2020-05-07 22:05:00', 1, 'TODO', NULL, NULL, NULL),
-	(14, 2, NULL, '2020-05-08 01:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(15, 1, NULL, '2020-05-06 09:05:00', 4, 'TODO', NULL, NULL, NULL),
-	(16, 1, NULL, '2020-05-06 11:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(17, 1, NULL, '2020-05-06 13:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(18, 1, NULL, '2020-05-06 15:05:00', 4, 'TODO', NULL, NULL, NULL),
-	(19, 1, NULL, '2020-05-06 17:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(20, 1, NULL, '2020-05-06 19:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(21, 1, NULL, '2020-05-06 21:05:00', 4, 'TODO', NULL, NULL, NULL),
-	(22, 1, NULL, '2020-05-06 23:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(23, 1, NULL, '2020-05-07 01:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(24, 1, NULL, '2020-05-07 03:05:00', 4, 'TODO', NULL, NULL, NULL),
-	(25, 1, NULL, '2020-05-07 05:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(26, 1, NULL, '2020-05-07 07:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(27, 1, NULL, '2020-05-07 09:05:00', 4, 'TODO', NULL, NULL, NULL),
-	(28, 1, NULL, '2020-05-07 11:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(29, 1, NULL, '2020-05-07 13:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(30, 1, NULL, '2020-05-07 15:05:00', 4, 'TODO', NULL, NULL, NULL),
-	(31, 1, NULL, '2020-05-07 17:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(32, 1, NULL, '2020-05-07 19:05:00', 3, 'TODO', NULL, NULL, NULL),
-	(33, 1, NULL, '2020-05-07 21:05:00', 4, 'TODO', NULL, NULL, NULL),
-	(34, 1, NULL, '2020-05-07 23:05:00', 2, 'TODO', NULL, NULL, NULL),
-	(35, 1, NULL, '2020-05-08 01:05:00', 3, 'TODO', NULL, NULL, NULL);
+	(1, 2, NULL, '2020-05-12 10:05:00', 1, 'TODO', NULL, NULL, NULL),
+	(2, 2, NULL, '2020-05-12 13:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(3, 2, NULL, '2020-05-12 16:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(4, 2, NULL, '2020-05-13 01:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(5, 2, NULL, '2020-05-12 22:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(6, 2, NULL, '2020-05-13 04:05:00', 1, 'TODO', NULL, NULL, NULL),
+	(7, 2, NULL, '2020-05-12 19:05:00', 1, 'TODO', NULL, NULL, NULL),
+	(8, 2, NULL, '2020-05-13 07:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(9, 2, NULL, '2020-05-13 13:05:00', 1, 'TODO', NULL, NULL, NULL),
+	(10, 2, NULL, '2020-05-13 10:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(11, 2, NULL, '2020-05-13 16:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(12, 2, NULL, '2020-05-13 19:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(13, 2, NULL, '2020-05-13 22:05:00', 1, 'TODO', NULL, NULL, NULL),
+	(14, 2, NULL, '2020-05-14 01:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(15, 1, 2, '2020-05-12 09:05:00', 4, 'DONE', 1, '2020-05-12 09:10:00', NULL),
+	(16, 1, NULL, '2020-05-12 11:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(17, 1, NULL, '2020-05-12 13:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(18, 1, NULL, '2020-05-12 15:05:00', 4, 'TODO', NULL, NULL, NULL),
+	(19, 1, NULL, '2020-05-12 17:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(20, 1, NULL, '2020-05-12 19:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(21, 1, NULL, '2020-05-12 21:05:00', 4, 'TODO', NULL, NULL, NULL),
+	(22, 1, NULL, '2020-05-12 23:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(23, 1, NULL, '2020-05-13 01:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(24, 1, NULL, '2020-05-13 03:05:00', 4, 'TODO', NULL, NULL, NULL),
+	(25, 1, NULL, '2020-05-13 05:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(26, 1, NULL, '2020-05-13 07:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(27, 1, NULL, '2020-05-13 09:05:00', 4, 'TODO', NULL, NULL, NULL),
+	(28, 1, NULL, '2020-05-13 11:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(29, 1, NULL, '2020-05-13 13:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(30, 1, NULL, '2020-05-13 15:05:00', 4, 'TODO', NULL, NULL, NULL),
+	(31, 1, NULL, '2020-05-13 17:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(32, 1, NULL, '2020-05-13 19:05:00', 3, 'TODO', NULL, NULL, NULL),
+	(33, 1, NULL, '2020-05-13 21:05:00', 4, 'TODO', NULL, NULL, NULL),
+	(34, 1, NULL, '2020-05-13 23:05:00', 2, 'TODO', NULL, NULL, NULL),
+	(35, 1, NULL, '2020-05-14 01:05:00', 3, 'TODO', NULL, NULL, NULL);
 /*!40000 ALTER TABLE `change_record` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zelo.movement_frequency
@@ -179,8 +179,8 @@ CREATE TABLE IF NOT EXISTS `patient_monitoring` (
 DELETE FROM `patient_monitoring`;
 /*!40000 ALTER TABLE `patient_monitoring` DISABLE KEYS */;
 INSERT INTO `patient_monitoring` (`id`, `start_date`, `end_date`, `observation`, `active`, `patient_id`, `movement_frequency_id`, `contact_restriction`) VALUES
-	(1, '2020-05-06 07:07:54', NULL, NULL, 1, 1, 1, NULL),
-	(2, '2020-05-06 07:08:23', NULL, NULL, 1, 2, 2, 1);
+	(1, '2020-05-12 07:07:54', NULL, NULL, 1, 1, 1, NULL),
+	(2, '2020-05-12 07:08:23', NULL, NULL, 1, 2, 2, 1);
 /*!40000 ALTER TABLE `patient_monitoring` ENABLE KEYS */;
 
 -- Copiando estrutura para tabela zelo.patient_restriction
@@ -261,11 +261,14 @@ CREATE TABLE IF NOT EXISTS `user` (
   `username` varchar(45) DEFAULT NULL,
   `email` varchar(150) DEFAULT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8;
 
--- Copiando dados para a tabela zelo.user: ~0 rows (aproximadamente)
+-- Copiando dados para a tabela zelo.user: ~2 rows (aproximadamente)
 DELETE FROM `user`;
 /*!40000 ALTER TABLE `user` DISABLE KEYS */;
+INSERT INTO `user` (`id`, `name`, `role`, `username`, `email`) VALUES
+	(1, 'Ana Paula', 'SUPERVISOR', NULL, NULL),
+	(2, 'Mariana', 'TECHNIQUE', NULL, NULL);
 /*!40000 ALTER TABLE `user` ENABLE KEYS */;
 
 /*!40101 SET SQL_MODE=IFNULL(@OLD_SQL_MODE, '') */;

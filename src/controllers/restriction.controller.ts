@@ -5,7 +5,7 @@ import RestrictionModel from '../models/restriction.model';
 
 class RestrictionController extends Controller {
   public async getList(req: Request, res: Response) {
-    const data = restrictionTransformation(req.body);
+    const data = restrictionTransformation(req.query);
     const list = await RestrictionModel.list(
       data);
     res.json({ status: true, data: list})

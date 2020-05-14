@@ -49,7 +49,7 @@ class UserController extends Controller {
 
   public async getAll(req: Request, res: Response) {
     try {
-      const where = dataTransformation(req.body);
+      const where = dataTransformation(req.query);
       const response = await Model.getAll(where);
       res.json(response);
     } catch (error) {

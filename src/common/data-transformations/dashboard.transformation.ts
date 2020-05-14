@@ -3,15 +3,24 @@ import {ChangeRecordInterface } from '../interfaces/database';
 import ObjectUtils from '../utils/object.utils';
 
 export default (body: any) => {
-  const { period, now, patientId, station } = body;
+  const { startDate, endDate, now, patientId, station, status } = body;
   const changeRecord ={
     't.patient_id': patientId
   };
+  let period;
+
+  if(startDate && endDate){
+    period= {
+      startDate,
+      endDate
+    }
+  }
+  const arrayStatus = status ? JSON.parse(status) : status;
   return ObjectUtils.removeUndefinedAttributes({
     changeRecord,
     custom: {
     period,
-    now, station
+    now, station, status: arrayStatus
   }
   });
 };

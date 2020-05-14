@@ -135,12 +135,16 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
       .where({
         'pm.active': true,
         'ph.active': true,
-        't.status': 'TODO',
       })
       .where(where);
 
     if(customWhere.period){
       query.where(this.knex.raw(`t.prevision_date BETWEEN '${customWhere.period.startDate}' AND '${customWhere.period.endDate}' `));
+    }
+    if(customWhere.status){
+      query.whereIn('t.status', customWhere.status);
+    }else{
+      query.where('t.status', CHANGE_RECORD_STATUS.TODO);
     }
     if(customWhere.now){
       const dateNow =  moment().format('YYYY-MM-DD HH:MM');

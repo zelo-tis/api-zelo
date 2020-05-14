@@ -5,7 +5,7 @@ import ModelChangeRecord from '../models/change-record.model';
 
 class DashboardController extends Controller {
   public async getListRegistry(req: Request, res: Response) {
-    const data = dashboardTransformation(req.body);
+    const data = dashboardTransformation(req.query);
     const list = await ModelChangeRecord.list(
       data.changeRecord,
       { column: 3, order: 1 },
