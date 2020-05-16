@@ -7,4 +7,5 @@ export interface PatientMonitoringInterface {
   patient_id?: number;
   movement_frequency_id?: number;
   contact_restriction?: boolean;
+  bed_id?: number;
 }
