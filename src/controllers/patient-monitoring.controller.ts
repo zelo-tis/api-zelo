@@ -61,7 +61,7 @@ class PatientMonitoringController extends Controller {
   public async getAll(req: Request, res: Response) {
     try {
       const where = dataTransformation(req.query);
-      const response = await PatientMonitoringModel.getAll(where);
+      const response = await PatientMonitoringModel.list(where);
       res.json(response);
     } catch (error) {
       this.sendError(res, error);
