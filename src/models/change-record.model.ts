@@ -105,7 +105,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     limit: number = 10,
     customWhere?: any
   ) {
-    const { column = 0, order = 0 } = orderBy || {};
+    let { column = 0, order = 0 } = orderBy || {};
     const sortableColumns = this.getSelect();
     const query = this.knex(this.knex.raw(`${this.table} t`))
       .select([
@@ -139,6 +139,11 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     if(customWhere.period){
       query.where(this.knex.raw(`t.prevision_date BETWEEN '${customWhere.period.startDate}' AND '${customWhere.period.endDate}' `));
     }
+    if(customWhere.late){
+      const dateNow =  moment().format('YYYY-MM-DD HH:MM');
+      query.orderBy(sortableColumns[3],  'DESC');
+      query.where(this.knex.raw(`t.prevision_date <= '${dateNow}'`));
+    }
     if(customWhere.status){
       query.whereIn('t.status', customWhere.status);
     }else{
@@ -146,7 +151,6 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     }
     if(customWhere.now){
       const dateNow =  moment().format('YYYY-MM-DD HH:MM');
-      console.log('dateNow', dateNow);
       query.where(this.knex.raw(`t.prevision_date >= '${dateNow}' `));
     }
 
@@ -163,7 +167,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         return total;
       });
 
-    if(!customWhere.period){
+    if(customWhere.now){
       query.groupBy('t.patient_id')
     }
 

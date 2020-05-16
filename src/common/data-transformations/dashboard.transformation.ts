@@ -3,7 +3,7 @@ import {ChangeRecordInterface } from '../interfaces/database';
 import ObjectUtils from '../utils/object.utils';
 
 export default (body: any) => {
-  const { startDate, endDate, now, patientId, station, status } = body;
+  const { startDate, endDate, now, patientId, station, status, late } = body;
   const changeRecord ={
     't.patient_id': patientId
   };
@@ -20,7 +20,7 @@ export default (body: any) => {
     changeRecord,
     custom: {
     period,
-    now, station, status: arrayStatus
+    now, station, status: arrayStatus, late
   }
   });
 };
