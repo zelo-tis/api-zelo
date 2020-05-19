@@ -14,5 +14,27 @@ class DashboardController extends Controller {
       data.custom);
     res.json({ status: true, data: list})
   }
+
+  public async getLate(req: Request, res: Response) {
+    const data = dashboardTransformation(req.query);
+
+    const response = await Promise.all([
+      ModelChangeRecord.list(
+      data.changeRecord,
+      { column: 3, order: 1 },
+      undefined,
+      10,
+      {...data.custom, now: true}),
+      ModelChangeRecord.list(
+        data.changeRecord,
+        { column: 3, order: 1 },
+        undefined,
+        10,
+        {...data.custom, late: true})
+    ]);
+
+    const result = [...response[0].data, ...response[1].data];
+    res.json({ status: true, data: result})
+  }
 }
 export default new DashboardController();

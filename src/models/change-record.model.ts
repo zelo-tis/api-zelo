@@ -140,7 +140,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
       query.where(this.knex.raw(`t.prevision_date BETWEEN '${customWhere.period.startDate}' AND '${customWhere.period.endDate}' `));
     }
     if(customWhere.late){
-      const dateNow =  moment().format('YYYY-MM-DD HH:MM');
+      const dateNow =  moment().format('YYYY-MM-DD HH:mm');
       query.orderBy(sortableColumns[3],  'DESC');
       query.where(this.knex.raw(`t.prevision_date <= '${dateNow}'`));
     }
@@ -150,7 +150,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
       query.where('t.status', CHANGE_RECORD_STATUS.TODO);
     }
     if(customWhere.now){
-      const dateNow =  moment().format('YYYY-MM-DD HH:MM');
+      const dateNow =  moment().format('YYYY-MM-DD HH:mm');
       query.where(this.knex.raw(`t.prevision_date >= '${dateNow}' `));
     }
 
@@ -172,7 +172,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     }
 
     let data = await query
-      .orderBy(sortableColumns[column], order == 0 ? 'DESC' : 'ASC')
+
       .limit(limit)
       .offset(page * limit);
 
