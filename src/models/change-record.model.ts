@@ -120,9 +120,9 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         'pm.observation as patient_monitoring_observation',
         'pm.contact_restriction',
         'mf.frequency',
-        this.knex.raw("DATE_FORMAT(t.prevision_date, \'%Y-%m-%d %H:%i\') as prevision_date"),
-        this.knex.raw("DATE_FORMAT(pm.start_date, \'%Y-%m-%d %H:%i\') as monitoring_start_date"),
-        this.knex.raw("DATE_FORMAT(pm.end_date, \'%Y-%m-%d %H:%i\') as monitoring_end_date"),
+        this.knex.raw("DATE_FORMAT(t.prevision_date, \'%d/%m/%Y %H:%i\') as prevision_date"),
+        this.knex.raw("DATE_FORMAT(pm.start_date, \'%d/%m/%Y %H:%i\') as monitoring_start_date"),
+        this.knex.raw("DATE_FORMAT(pm.end_date, \'%d/%m/%Y %H:%i\') as monitoring_end_date"),
         this.knex.raw('TIMESTAMPDIFF(MINUTE, NOW(), t.prevision_date) AS deadline'),
       ])
       .innerJoin(this.knex.raw('patient p'), 'p.id', 't.patient_id')
