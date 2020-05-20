@@ -18,7 +18,8 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
       'status',
       'completed_by_user_id',
       'completed_at',
-      'created_at'
+      'created_at',
+      'completed_late'
     ];
 
     super('change_record', columns);
@@ -102,7 +103,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     where?: any,
     orderBy?: { column: number; order: number },
     page: number = 0,
-    limit: number = 10,
+    limit: number = 100,
     customWhere?: any
   ) {
     let { column = 0, order = 0 } = orderBy || {};
@@ -121,12 +122,16 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         'pm.observation as patient_monitoring_observation',
         'pm.contact_restriction',
         'mf.frequency',
+        'u.name as responsible_user',
+        't.completed_late',
         this.knex.raw("DATE_FORMAT(t.prevision_date, \'%d/%m/%Y %H:%i\') as prevision_date"),
+        this.knex.raw("DATE_FORMAT(t.completed_at, \'%d/%m/%Y %H:%i\') as completed_at"),
         this.knex.raw("DATE_FORMAT(pm.start_date, \'%d/%m/%Y %H:%i\') as monitoring_start_date"),
         this.knex.raw("DATE_FORMAT(pm.end_date, \'%d/%m/%Y %H:%i\') as monitoring_end_date"),
         this.knex.raw('TIMESTAMPDIFF(MINUTE, NOW(), t.prevision_date) AS deadline'),
       ])
       .innerJoin(this.knex.raw('patient p'), 'p.id', 't.patient_id')
+      .leftJoin(this.knex.raw('user u'), 'u.id', 't.responsible_user_id')
       .innerJoin(this.knex.raw('treatment'), 'treatment.id', 't.treatment_id')
       .innerJoin(this.knex.raw('patient_monitoring pm'), 'pm.patient_id', 't.patient_id')
       .innerJoin(this.knex.raw('movement_frequency mf'), 'mf.id', 'pm.movement_frequency_id')
@@ -173,7 +178,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     }
 
     let data = await query
-
+      .orderBy(sortableColumns[column], order == 0 ? 'DESC' : 'ASC')
       .limit(limit)
       .offset(page * limit);
 

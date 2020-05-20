@@ -5,6 +5,8 @@ const router = Router();
 
 router.get('/', (req: Request, res: Response) => Controller.getAll(req, res));
 
+router.get('/list', (req: Request, res: Response) => Controller.getList(req, res));
+
 router.get('/:id', (req: Request, res: Response) => Controller.getOne(req, res));
 
 router.post('/', (req: Request, res: Response) => Controller.insert(req, res));

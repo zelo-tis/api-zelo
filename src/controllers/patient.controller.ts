@@ -2,6 +2,7 @@ import { Request, Response } from 'express';
 import Controller from '../common/utils/class/controller';
 import PatientModel from '../models/patient.model';
 import dataTransformation from '../common/data-transformations/patient.transformation';
+import dashboardTransformation from '../common/data-transformations/dashboard.transformation';
 
 class PatientController extends Controller {
   public async insert(req: Request, res: Response) {
@@ -66,6 +67,16 @@ class PatientController extends Controller {
     } catch (error) {
       this.sendError(res, error);
     }
+  }
+  public async getList(req: Request, res: Response) {
+    const data = dashboardTransformation(req.query);
+    const list = await PatientModel.list(
+      data.changeRecord,
+      { column: 2, order: 1 },
+      undefined,
+      10,
+      data.custom);
+    res.json({ status: true, data: list})
   }
 }
 export default new PatientController();

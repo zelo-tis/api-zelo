@@ -6,11 +6,12 @@ import ModelChangeRecord from '../models/change-record.model';
 class DashboardController extends Controller {
   public async getListRegistry(req: Request, res: Response) {
     const data = dashboardTransformation(req.query);
+    const { page = 0, limit = 10, orderCol = 0, order = 0 } = req.query;
     const list = await ModelChangeRecord.list(
       data.changeRecord,
-      { column: 3, order: 1 },
-      undefined,
-      10,
+      { column: +orderCol, order: +order },
+      +page,
+      +limit,
       data.custom);
     res.json({ status: true, data: list})
   }
