@@ -2,6 +2,8 @@ import { Request, Response } from 'express';
 import Controller from '../common/utils/class/controller';
 import changeRecordTransformation from '../common/data-transformations/change-record.transformation';
 import ModelChangeRecord from '../models/change-record.model';
+import moment from 'moment';
+import {DATE_FORMAT} from '../common/constants';
 
 class ChangeRecordController extends Controller {
   public async insert(req: Request, res: Response) {
@@ -27,6 +29,15 @@ class ChangeRecordController extends Controller {
       const id = this.getIdFromRequestParams(req);
       const data = changeRecordTransformation(req.body);
 
+      if(data.completed_at){
+        const item = await ModelChangeRecord.getOne({id});
+        const prevision = moment(item.prevision_date);
+        const diff = prevision.diff(data.completed_at);
+        if(diff < 0){
+          data.completed_late = true;
+        }
+      }
+      console.log('data', data);
       await ModelChangeRecord.update({ id }, data);
 
       const response = await ModelChangeRecord.getOne({ id });

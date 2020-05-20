@@ -8,4 +8,5 @@ export interface ChangeRecordInterface {
   completed_by_user_id?: number;
   completed_at?: number;
   created_at?: string;
+  completed_late?: boolean;
 }

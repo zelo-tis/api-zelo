@@ -114,6 +114,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         'bed.number as bed',
         'p.attendance_number',
         'p.name as patient_name',
+        'p.id as patient_id',
         'treatment.name as treatment_name',
         'p.braden',
         't.status',
