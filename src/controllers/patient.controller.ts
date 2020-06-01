@@ -69,9 +69,9 @@ class PatientController extends Controller {
     }
   }
   public async getList(req: Request, res: Response) {
-    const data = dashboardTransformation(req.query);
+    const data = dataTransformation(req.query);
     const list = await PatientModel.list(
-      data.changeRecord,
+      data.patient,
       { column: 2, order: 1 },
       undefined,
       10,

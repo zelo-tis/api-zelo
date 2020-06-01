@@ -25,7 +25,7 @@ export class  PatientRestriction extends Model<PatientRestrictionInterface> {
   }
 
   public async list(
-    where?: PatientRestrictionInterface,
+    where?: any,
     orderBy?: { column: number; order: number },
     page: number = 0,
     limit: number = 10
@@ -41,8 +41,7 @@ export class  PatientRestriction extends Model<PatientRestrictionInterface> {
         'p.name',
         'mf.frequency'
       ])
-      .leftJoin(this.knex.raw('patient p'), 'p.id', 't.patient_id')
-      .leftJoin(this.knex.raw('movement_frequency mf'), 'mf.id', 't.movement_frequency_id');
+      .leftJoin(this.knex.raw('patient p'), 'p.id', 't.patient_id');
 
     const count = query.clone();
 

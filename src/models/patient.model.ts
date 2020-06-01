@@ -39,14 +39,12 @@ export class Patient extends Model<PatientInterface> {
   ) {
     let { column = 0, order = 0 } = orderBy || {};
     const sortableColumns = this.getSelect();
-    const query = this.knex(this.knex.raw(`${this.table} t`))
+    const query = this.knexGetAll(where)
       .select([
-        't.id',
         's.name as station',
         'bed.number as bed',
         't.attendance_number',
         't.name as patient_name',
-        't.braden',
         'pm.observation as patient_monitoring_observation',
         'pm.contact_restriction',
         'mf.frequency',
@@ -58,18 +56,12 @@ export class Patient extends Model<PatientInterface> {
       .leftJoin(this.knex.raw('patient_monitoring pm'), 'pm.patient_id', 't.id')
       .innerJoin(this.knex.raw('movement_frequency mf'), 'mf.id', 'pm.movement_frequency_id')
       .innerJoin(this.knex.raw('bed'), 'bed.id', 'pm.bed_id')
-      .innerJoin(this.knex.raw('station s'), 's.id', 'bed.station_id')
-      .where({
-      })
-      .where(where);
-
-    if(customWhere.period){
-      query.where(this.knex.raw(`t.prevision_date BETWEEN '${customWhere.period.startDate}' AND '${customWhere.period.endDate}' `));
-    }
+      .innerJoin(this.knex.raw('station s'), 's.id', 'bed.station_id');
 
     if(customWhere.station){
       query.where({'bed.station_id': customWhere.station});
     }
+
     const count = query.clone();
 
     const total = await count
@@ -85,11 +77,12 @@ export class Patient extends Model<PatientInterface> {
       .limit(limit)
       .offset(page * limit);
 
-
-    if(where.patient_id){
-      data[0].restrictions = await PatientRestriction.getAll({patient_id: data[0]})
-    }
-
+    const restrictions = await Promise.all(
+      data.map((item) => PatientRestriction.getAll({patient_id: item.id}))
+    );
+    data.forEach((item, key) => {
+      item.restrictions = restrictions[key];
+    });
     return {
       page,
       limit,
