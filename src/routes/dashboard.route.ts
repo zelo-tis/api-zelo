@@ -11,5 +11,9 @@ router
   .route(['/late'])
   .get((req, res) => Controller.getLate(req, res));
 
+router
+  .route(['/now'])
+  .get((req, res) => Controller.getNow(req, res));
+
 
 export default router;
