@@ -3,6 +3,8 @@ import Controller from '../common/utils/class/controller';
 import PatientMonitoringModel from '../models/patient-monitoring.model';
 import ChangeRecordModel from '../models/change-record.model';
 import dataTransformation from '../common/data-transformations/patient-monitoring.transformation';
+import moment from 'moment';
+import {DATE_FORMAT} from '../common/constants';
 
 
 class PatientMonitoringController extends Controller {
@@ -31,6 +33,9 @@ class PatientMonitoringController extends Controller {
       const id = this.getIdFromRequestParams(req);
       const data = dataTransformation(req.body);
 
+      if(data.active){
+        data.start_date = moment().format(DATE_FORMAT.DEFAULT_TIME)
+      }
       await PatientMonitoringModel.update({ id }, data);
 
       const response = await PatientMonitoringModel.getOne({ id });
