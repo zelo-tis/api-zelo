@@ -2,7 +2,8 @@ import bodyParser from 'body-parser';
 import express from 'express';
 import apiRoutes from './routes';
 import changeRecordJob from "./common/jobs/create-change-records.job";
-
+const moment = require('moment-timezone');
+moment.tz.setDefault("America/Sao_Paulo");
 class App {
     public express: express.Application;
 

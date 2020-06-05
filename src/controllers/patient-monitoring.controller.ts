@@ -34,6 +34,8 @@ class PatientMonitoringController extends Controller {
       const data = dataTransformation(req.body);
 
       if(data.active){
+        const now = moment().format(DATE_FORMAT.DEFAULT_TIME);
+        console.log('now patient monitoring', now);
         data.start_date = moment().format(DATE_FORMAT.DEFAULT_TIME)
       }
       await PatientMonitoringModel.update({ id }, data);
