@@ -6,7 +6,12 @@ export const calcNextHour  = (date: Date, hours: number) => {
 };
 const fixedNumber = (value: number) => Number(value.toFixed());
 
-export const calcDeadline = (minutes: number, status: string = CHANGE_RECORD_STATUS.TODO) => {
+export const calcDiff = (time: string) => moment.duration(moment(time).diff(moment())).asMinutes();
+
+export const calcDeadline = (date: string, status: string = CHANGE_RECORD_STATUS.TODO) => {
+
+ let minutes = calcDiff(date);
+
   const deadline = {
     late: false,
     text: ''
@@ -17,14 +22,12 @@ export const calcDeadline = (minutes: number, status: string = CHANGE_RECORD_STA
     minutes = Math.abs(minutes);
     deadline.late = CHANGE_RECORD_STATUS.DONE !== status;
   }
+  const time = moment(date);
+
   if (minutes >= hoursLimit) {
-    const days = fixedNumber(minutes / hoursLimit);
-    deadline.text = `${days} dia${days > 1 ? 's' : ''}`;
+      deadline.text = time.calendar();
   } else if (minutes < hoursLimit && minutes > 59) {
-    const hours = fixedNumber(minutes / 60);
-    deadline.text = `${hours} hora${hours > 1 ? 's' : ''}`;
-  } else if (minutes < 59 && minutes >= 0) {
-    deadline.text = `${minutes} minuto${minutes > 1 ? 's' : ''}`;
+    deadline.text = time.calendar();
   }
 
   if (deadline.late) deadline.text = `${deadline.text} atrás`;

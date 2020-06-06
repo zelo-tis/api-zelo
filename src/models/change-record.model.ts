@@ -4,7 +4,7 @@ import PatientMonitoringModel from './patient-monitoring.model';
 import PatientModel from './patient.model';
 import {CHANGE_RECORD_STATUS, DATE_FORMAT} from '../common/constants';
 import moment from 'moment';
-import {calcDeadline} from "../common/utils/date.utils";
+import {calcDeadline, calcDiff} from "../common/utils/date.utils";
 export class ChangeRecord extends Model<ChangeRecordInterface> {
   public id?: number;
 
@@ -183,7 +183,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
 
     data = data.map((item, key) => ({
       ...item,
-      deadline: calcDeadline(item.deadline, item.status)
+      deadline: calcDeadline(item.prevision_date, item.status),
     }));
 
     return {
@@ -222,6 +222,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
         this.knex.raw("DATE_FORMAT(t.completed_at, \'%d/%m/%Y %H:%i\') as completed_at"),
         this.knex.raw("DATE_FORMAT(pm.start_date, \'%d/%m/%Y %H:%i\') as monitoring_start_date"),
         this.knex.raw("DATE_FORMAT(pm.end_date, \'%d/%m/%Y %H:%i\') as monitoring_end_date"),
+        this.knex.raw("DATE_FORMAT(t.prevision_date, \'%Y-%m-%d %H:%i\') as prevision_date"),
         this.knex.raw('TIMESTAMPDIFF(MINUTE, NOW(), t.prevision_date) AS deadline'),
       ])
       .innerJoin(this.knex.raw('patient p'), 'p.id', 't.patient_id')
@@ -251,6 +252,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     }
     if(customWhere.now){
       const dateNow =  moment().format('YYYY-MM-DD HH:mm');
+      console.log('dateNow', dateNow);
       query.where(this.knex.raw(`t.prevision_date >= '${dateNow}' `));
       column = 3;
       order = 1;
@@ -264,7 +266,7 @@ export class ChangeRecord extends Model<ChangeRecordInterface> {
     let data = await newQuery;
     data = data.map((item, key) => ({
       ...item,
-      deadline: calcDeadline(item.deadline, item.status)
+      deadline: calcDeadline(item.prevision_date, item.status)
     }));
 
     const count = query.clone();
