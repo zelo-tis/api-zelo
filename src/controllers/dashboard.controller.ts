@@ -32,7 +32,7 @@ class DashboardController extends Controller {
     const data = dashboardTransformation(req.query);
 
     const response = await Promise.all([
-      ModelChangeRecord.list(
+      ModelChangeRecord.getNow(
       data.changeRecord,
       { column: 3, order: 1 },
       undefined,

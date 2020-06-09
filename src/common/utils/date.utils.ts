@@ -24,13 +24,7 @@ export const calcDeadline = (date: string, status: string = CHANGE_RECORD_STATUS
   }
   const time = moment(date);
 
-  if (minutes >= hoursLimit) {
-      deadline.text = time.calendar();
-  } else if (minutes < hoursLimit && minutes > 59) {
-    deadline.text = time.calendar();
-  }
-
-  if (deadline.late) deadline.text = `${deadline.text} atrás`;
+  deadline.text = time.calendar();
   return deadline;
 };
 
